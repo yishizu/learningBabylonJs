@@ -92,6 +92,20 @@
 
     BABYLON.SceneLoader.ImportMesh("", Assets.meshes.Yeti.rootUrl, Assets.meshes.Yeti.filename, scene, function(newMeshes){
         newMeshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+    
+        const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    box.registerInstancedBuffer("color",4);
+    box.instancedBuffers.color = new BABYLON.Color4(1,0,0,1);
+
+    for(var i=0; i<10000; i++){
+        var instance = box.createInstance("box"+i)
+        instance.position.x = 5 - Math.random()*10;
+        instance.position.y = 5 - Math.random()*10;
+        instance.position.z = 5 - Math.random()*10;
+        
+        instance.instancedBuffers.color = new BABYLON.Color4(Math.random(),0,Math.random(),1)
+    }
+    
     });
     
 
